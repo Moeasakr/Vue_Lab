@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>J1 Practice -- Boiling water</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .formfield {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <p>Boiling Water Problem. <a href="https://cemc.uwaterloo.ca/contests/computing/2021/index.html">from the J1 problem
+            hosted by the CCC.</a></p>
+    <div id="app">
+        <div class="formfield">
+            <label>Boiling temperature: <label> <input v-model="temperature_input">
+        </div>
+        <div id="result">
+            <div>Atmospheric Pressure: {{atmospheric_pressure}}</div>
+            <div>Sea level: {{problemOutput}}</div>
+            <div>You are: {{seaLevel}}</div>
+        </div>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                temperature_input: 80,
+                first_value: 5,
+                second_value: 400
+            },
+            computed: {
+                atmospheric_pressure: function () {
+                    return this.first_value * this.temperature_input - this.second_value;
+                },
+                seaLevel: function () {
+                    if (this.problemOutput === -1) return "Below sea level";
+                    if (this.problemOutput === 0) return "Sea level";
+                    if (this.problemOutput === 1) return "Above sea level";
+                },
+                problemOutput: function () {
+                    if (this.atmospheric_pressure === 100) return 0;
+                    if (this.atmospheric_pressure > 100) return -1;
+                    return 1;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
